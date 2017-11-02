@@ -19,7 +19,7 @@ function [x,flag] = Simplex(f, A, b)
     it = 1;
     while 1
         % check for success
-        if(all(zmc > 0))
+        if(all(zmc >= 0))
             x = bf;
             flag = 1;
             return;
@@ -39,7 +39,9 @@ function [x,flag] = Simplex(f, A, b)
             % get minimum value
             [valk, k] = min(zmc);
             % find row 
-            [valr, r] = min(bf ./ transpose(A(:, k)));
+            newBf = bf ./ transpose(A(:, k));
+            valr = min(newBf(newBf > 0));
+            r = find(newBf == valr); 
             eg = A(r, k);
             % divide row by main element
             A(r, :) = A(r,:) ./ eg;
@@ -47,7 +49,7 @@ function [x,flag] = Simplex(f, A, b)
             for i = [1:(r-1), (r+1):m]
                 el = A(i, k);
                 A(i, :) = A(i,:) - el * A(r, :);
-                bf(i) = b(i) - el * bf(r);
+                bf(i) = bf(i) - el * bf(r);
             end
             baseIndexes(r) = k;
             base(r) = c(k);
