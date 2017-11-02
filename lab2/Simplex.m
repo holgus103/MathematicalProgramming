@@ -17,7 +17,7 @@ function [x,flag] = Simplex(f, A, b, Aeq, beq)
     % assign base values
     base = zeros(m, 1);
     % get base indexes
-    baseIndexes = (m + 1) : n;   
+    baseIndexes = (n - m)+1 : n;   
     it = 1;
     while 1
         % check for success
@@ -33,6 +33,7 @@ function [x,flag] = Simplex(f, A, b, Aeq, beq)
                     if(all(A(:,i)<= 0))
                         % contradiciton
                         flag = -1;
+                        x = [];
                         return;
                     end
                 end
