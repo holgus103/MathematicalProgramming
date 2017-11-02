@@ -20,7 +20,9 @@ function [x,flag] = Simplex(f, A, b)
     while 1
         % check for success
         if(all(zmc >= 0))
-            x = bf;
+            x = zeros(1, n);
+            x(baseIndexes) = bf;
+            x = x(1:m);
             flag = 1;
             return;
         else
@@ -57,8 +59,7 @@ function [x,flag] = Simplex(f, A, b)
             for i = 1:n
                 z(i) = dot(base, A(:, i));
             end
-            zmc = z - c;
- 
+            zmc = z - c; 
         end
     end
 end
