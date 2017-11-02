@@ -1,11 +1,9 @@
-function [x,flag] = Simplex(f, A, b, Aeq, beq)
+function [x,flag] = Simplex(f, A, b)
     n=length(f);
     m=length(b);
-    m2 = length(beq);
-    n = n + m + m2;
-    m = m + m2;
+    n = n + m;
     % extend A
-    A = [A eye(m) zeros(m,m2); Aeq zeros(m2, m) eye(m2, m2)] 
+    A = [A eye(m)];
     % allocate z
     z = zeros(1, n);
     % assign c
@@ -13,7 +11,7 @@ function [x,flag] = Simplex(f, A, b, Aeq, beq)
     % calculate z - c
     zmc = z-c;
     % assign value vector
-    bf = [b beq];
+    bf = b;
     % assign base values
     base = zeros(m, 1);
     % get base indexes
