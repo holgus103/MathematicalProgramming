@@ -22,7 +22,7 @@ function [x,flag] = Simplex(f, A, b)
         if(all(zmc >= 0))
             x = zeros(1, n);
             x(baseIndexes) = bf;
-            x = x(1:m);
+            x = x(1:(n - m));
             flag = 1;
             return;
         else

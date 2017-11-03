@@ -4,23 +4,29 @@ function [x,flag] = SimplexM(f, A, b, M)
     n=length(f);
     % extend A
     A = [A eye(m)];
-    % allocate z
-    z = zeros(1, n);
     % assign c
     c = f;
+    % assign base values
+    base = repelem(-M, m);
+    % allocate z
+    for i = 1:n
+        z(i) = dot(base, A(:, i));
+    end
+
     % calculate z - c
     zmc = z-c;
     % assign value vector
     bf = b;
-    % assign base values
-    base = repelem(-M, m);
+
     % get base indexes
     baseIndexes = (n - m + 1) : n;   
     it = 1;
     while 1
         % check for success
         if(all(zmc >= 0))
-            x = bf;
+            x = zeros(1, n);
+            x(baseIndexes) = bf;
+            x = x(1:(n - m));
             flag = 1;
             return;
         else
