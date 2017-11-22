@@ -1,9 +1,10 @@
-function [x,flag] = DualSimplex(f, A, b)
+function [x, y,flag] = DualSimplex(f, A, b)
     n=length(f);
     m=length(b);
     n = n + m;
     % extend A
     A = [A -eye(m)];
+    Aorg = A;
     A = -A;
     % allocate z
     z = zeros(1, n);
@@ -25,6 +26,7 @@ function [x,flag] = DualSimplex(f, A, b)
             x = zeros(1, n);
             x(baseIndexes) = bf;
             x = x(1:(n - m));
+            y = transpose(-base) * inv(Aorg(:, baseIndexes));
             flag = 1;
             return;
         else
