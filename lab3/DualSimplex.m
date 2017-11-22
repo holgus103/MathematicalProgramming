@@ -31,7 +31,7 @@ function [x, y,flag] = DualSimplex(f, A, b)
             return;
         else
             % get minimum value and row index
-            [valr, r] = min(b);
+            [valr, r] = min(bf);
             
             % check if solution exists
             if(all(A(1, :)>=0))
