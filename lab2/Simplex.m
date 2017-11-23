@@ -44,7 +44,7 @@ function [x,flag] = Simplex(f, A, b)
             % find row 
             newBf = bf ./ transpose(A(:, k));
             valr = min(newBf(newBf > 0));
-            r = find(newBf == valr); 
+            r = find(newBf == valr, 1); 
             eg = A(r, k);
             % divide row by main element
             A(r, :) = A(r,:) ./ eg;
