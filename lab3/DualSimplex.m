@@ -18,7 +18,8 @@ function [x, y,flag] = DualSimplex(f, A, b)
     % assign base values
     base = zeros(m, 1);
     % get base indexes
-    baseIndexes = (n - m)+1 : n;   
+    baseIndexes = (n - m)+1 : n;  
+    baseIndexes
     it = 1;
     while 1
         % check for success
@@ -34,7 +35,7 @@ function [x, y,flag] = DualSimplex(f, A, b)
             [valr, r] = min(bf);
             
             % check if solution exists
-            if(all(A(1, :)>=0))
+            if(all(A(r, :)>=0))
                 % contradiciton
                 flag = -1;
                 x = [];
@@ -42,9 +43,15 @@ function [x, y,flag] = DualSimplex(f, A, b)
             end            
             % no contradiction
             % find column
-            tmp = zmc ./ A(r, :);
-            valk = max(tmp(tmp<0));
-            k = find(tmp == valk, 1); 
+             row = A(r,:);
+             for i=1:size(row,2)
+                    if row(i)>0
+                        row(i) = 0;
+                    end
+            end
+            [valk, k] = min(abs(zmc) ./ abs(row));
+            %valk = max(tmp(tmp<0));
+            %k = find(tmp == valk, 1); 
             eg = A(r, k);
             % divide row by main element
             A(r, :) = A(r,:) ./ eg;
@@ -54,7 +61,9 @@ function [x, y,flag] = DualSimplex(f, A, b)
                 A(i, :) = A(i,:) - el * A(r, :);
                 bf(i) = bf(i) - el * bf(r);
             end
+            
             baseIndexes(r) = k;
+            %baseIndexes
             base(r) = c(k);
             for i = 1:n
                 z(i) = dot(base, A(:, i));
