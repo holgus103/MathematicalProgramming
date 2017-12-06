@@ -1,0 +1,35 @@
+function [outputArg1,outputArg2] = Fibonacci(a, b, f, n, e)
+    fib = zeros(1, n + 1);
+    fib(1) = 0;
+    fib(2) = 0;
+    for i = 3:(n + 1)
+        fib(i)  = f(i - 1) + f(i - 2);
+    end
+    % step 1
+    d = b - a;
+    x1 = a + fib(n - 1) / f(n + 1)*d;
+    x2 = a + fib(n) / f(n + 1)*d;
+    fx1 = f(x1);
+    fx2 = f(x2);
+    for i= 2:(n+1)
+        if(fx1 < fx2)
+            b = x2;
+            d = b - a;
+            x2 = x1;
+            fx2 = fx1;
+            x1 = a + fib(n - i) / f(n + 2 - i)*d;
+            fx1 = f(x1);            
+        else
+            a = x1;
+            d = b - a;
+            x1 = x2;
+            fx1 = fx2;
+            x2 = a + fib(n - ) / f(n + 2 - i)*d;
+            fx1 = f(x1);   
+        end
+    end
+    
+    
+
+end
+
