@@ -1,4 +1,4 @@
-function x = GetRange(f, a, delta)
+function [a1, a2, a3] = GetRange(f, a, delta)
     b = a + delta;
     if(f(a) <= f(b))
         a1 = a;
@@ -16,6 +16,5 @@ function x = GetRange(f, a, delta)
             a3 = a2 + delta;
         end
     end
-    x = [a1, a2, a3];
 end
 
