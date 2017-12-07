@@ -15,6 +15,6 @@ function x = MidpointNonDifferenciable(a, b, f, e, de)
             end
         end
     end
-    x = (b-a)/2;
+    x = (b+a)/2;
 end
 

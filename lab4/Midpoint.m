@@ -15,6 +15,6 @@ function x = Midpoint(a, b, f, e)
             end
         end
     end
-    x = (b-a)/2;
+    x = (b+a)/2;
 end
 

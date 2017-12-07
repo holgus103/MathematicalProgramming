@@ -26,6 +26,6 @@ function x = Golden(a, b, f, e)
             fx2 = f(x2);
         end
     end
-    x = (a + b / 2);
+    x = (a + b) / 2;
 end
 

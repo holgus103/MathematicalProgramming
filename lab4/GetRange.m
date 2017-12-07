@@ -3,7 +3,7 @@ function [a1, a2, a3] = GetRange(f, a, delta)
     if(f(a) <= f(b))
         a1 = a;
         a3 = b;
-        a2 = (a1 + a3)/2
+        a2 = (a1 + a3)/2;
         while(f(a1) < f(a2) || f(a3) < f(a2))
             a2 = (a1 + a2) / 2;
         end
