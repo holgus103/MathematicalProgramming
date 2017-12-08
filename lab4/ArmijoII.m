@@ -1,10 +1,12 @@
-function res = ArmijoII(f, a, ro, k, e)
-    fr = matlabFunction(f);
-    dr = matlabFunction(diff(f));
+function [res, i] = ArmijoII(f, g,  a, ro, k, e)
+    fr = f;
     f0 = fr(0);
-    d0 = dr(0);
+    d0 = sum(g);
+    %sqrt(g(1)^2 + g(2)^2 + g(3)^2);
     fa = fr(a);
+    i = 0;
     while 1
+        i = i + 1;
         if(fa > (f0 + ro * a * d0))
             % check if step is too small
             if((a - a/k) < e)

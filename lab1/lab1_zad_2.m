@@ -11,5 +11,5 @@ b = [-4, 5];
 Aeq = [1, 2, 2, 1]
 beq = [9]
 lb = [0, 0, 0, 0];
-options = optimoptions('linprog', 'Algorithm', 'dual-simplex', 'Display', 'iter');
+options = optimset('linprog', 'Algorithm', 'dual-simplex', 'Display', 'iter');
 [x, fval, exitflag, output, lambda] = linprog(f, A, b, Aeq, beq, lb, [], options);

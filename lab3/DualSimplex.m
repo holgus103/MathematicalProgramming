@@ -49,9 +49,10 @@ function [x, y,flag] = DualSimplex(f, A, b)
                         row(i) = 0;
                     end
             end
-            [valk, k] = min(abs(zmc) ./ abs(row));
-            %valk = max(tmp(tmp<0));
-            %k = find(tmp == valk, 1); 
+            %[valk, k] = min(abs(zmc) ./ abs(row));
+            tmp = zmc ./ A(r, :);
+            valk = max(tmp(tmp<=0));
+            k = find(tmp == valk, 1); 
             eg = A(r, k);
             % divide row by main element
             A(r, :) = A(r,:) ./ eg;
