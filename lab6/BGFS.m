@@ -17,7 +17,7 @@ function [x,it] = BGFS(f, g, x0, delta, e, minimizer)
         s  = x - oldx;
         
         H = H + r*(s' + H * r')*s'*s/((r*s')^2) - ...
-            (s' * r * H + H * r' * s)/(r*s')
+            (s' * r * H + H * r' * s)/(r*s');
 
         
         it = it + 1;
