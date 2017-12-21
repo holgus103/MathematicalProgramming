@@ -1,5 +1,5 @@
 function xb = HJ(f, x0, e, delta, alfa, beta, maxIter)
-    function [x0, oldx0, fail] = trialStage(x0, maxIter)
+    function [xr, oldx0, fail] = trialStage(x0, maxIter)
         fail = 0;
         oldx0 = x0;
         k = 0;
@@ -54,7 +54,7 @@ function xb = HJ(f, x0, e, delta, alfa, beta, maxIter)
         
          x = xb + alfa*(xb - oldx);
         
-        [xt, a, fail] = trialStage(x, 1)
+        [xt, a, fail] = trialStage(x, 1);
         if(fail == 0)
             xb = xt;
             oldx = a;
