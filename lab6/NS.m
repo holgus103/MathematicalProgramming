@@ -10,7 +10,8 @@ function [x, it] = NS(f, g, x0, e, delta, minimizer)
         x = x - res * grad;
         if(norm(grad) < e || (norm(x - old) < e))
             break;
-        end        
+        end 
+        it = it + 1;
     end
 end
 
