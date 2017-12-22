@@ -4,23 +4,22 @@ function [x, it] = Powell(f, x0, U, e, delta, minimizer, N)
             [a, b, c] = GetRange(fun, 0, delta);
             res = minimizer(a, c, fun, e);
     end
-    function res = tryBothDirections(x, d)
+    function x = tryBothDirections(x, d)
         res = minimize(x, d);
         if(res < e || norm(f(x + res * d) - f(x)) < e)
             d = -d;
             res = minimize(x, d);
         end
+        x = x + res * d; 
     end
     it = 0;
     n = size(U, 1);
     while it < N
         x = x0;
         for i = 1:n
-            d = U(i, :);
-            res = tryBothDirections(x, U(i, :));
-            x = x + res * d;             
+            x = tryBothDirections(x, U(i, :));            
         end
-        if(norm(x0 - x) < e || norm(f(x) - f(x0)))
+        if(norm(x0 - x) < e || norm(f(x) - f(x0)) < e)
             break; % finito amigo
         end
         for i = 1:(n-1)
@@ -28,9 +27,9 @@ function [x, it] = Powell(f, x0, U, e, delta, minimizer, N)
         end
         U(n, :) = x - x0;
         U(n, :) = U(n, :) / norm(U(n, :));
-        d = U(i, :);
-        res = tryBothDirections(x, d);
-        x = x + res * d; 
+        d = U(n, :);
+        x = tryBothDirections(x, d);
+        x0 = x;
         it = it + 1;
     end
 end
