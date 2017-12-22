@@ -1,4 +1,4 @@
-function x = Midpoint(a, b, f, g, e)
+function x = MidpointFunctionHandles(a, b, f, g, e)
     dr = g
     while((b - a) > e)
         z = (a + b) / 2;
