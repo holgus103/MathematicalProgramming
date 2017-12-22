@@ -1,7 +1,6 @@
-function [res, i] = ArmijoII(f, g,  a, ro, k, e)
+function [res, i] = ArmijoII(f, d0,  a, ro, k, e)
     fr = f;
     f0 = fr(0);
-    d0 = sum(g);
     %sqrt(g(1)^2 + g(2)^2 + g(3)^2);
     fa = fr(a);
     i = 0;
