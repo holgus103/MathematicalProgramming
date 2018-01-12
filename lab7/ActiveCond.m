@@ -35,13 +35,13 @@ function x = ActiveCond(D, c, A, b, Aeq, beq, x0, eps)
         if(norm(d)< eps)
             % check for exit condition
             % step 6
-            [m, removeIndex] = min(lambdas);
-            if(m >=0)
+            [val, removeIndex] = min(lambdas);
+            if(val >=0)
                 % exit, all lambdas >= 0
                 return;
             else
                 counter=0;
-                for i=1:ni
+                for i=1:n
                    if active(neq+i)==1
                       counter=counter+1;
                       if counter==removeIndex

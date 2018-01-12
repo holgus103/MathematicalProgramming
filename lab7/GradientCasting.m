@@ -6,8 +6,8 @@ function x = GradientCasting(D, c, A, b, Aeq, beq, x0, eps)
     x = x0;
 
     it = 0;
-    while true
         A1 = [];
+        b2 = []';
         A2 = [];
         % step 1
         Uk = Aeq';
@@ -23,9 +23,12 @@ function x = GradientCasting(D, c, A, b, Aeq, beq, x0, eps)
             else
                 % append condition to le matrix
                 A2 = [A2; A(i, :)];
+                b2 = [b2; b(i)];
             end
         end
         r = p + m2;
+    while true
+
         % step 2 - get Pk matrix
         if(abs(r) < eps)
             Pk = eye(m);
@@ -47,11 +50,12 @@ function x = GradientCasting(D, c, A, b, Aeq, beq, x0, eps)
                 lambdam2 = lambdas(p+1:m2);
                 % check another exit condition
                 % step 5
-                if(norm(lambdap)>=0)
+                [val, index] = min(lambdap);
+                if(val>=0)
                     return;
                 end
                 % step 6
-                [min, index] = min(lambdap);
+
                 p = p - 1;
                 r = r - 1;
                 Uk(:, index) = [];
@@ -72,7 +76,7 @@ function x = GradientCasting(D, c, A, b, Aeq, beq, x0, eps)
             % calculate max step
             for i=1:length(Ad)
                 if Ad(i)>0
-                    alfa_tmp=(b(i)-A(i,:)*x)/Ad(i);
+                    alfa_tmp=(b2(i)-A2(i,:)*x)/Ad(i);
                     if alfa_tmp<alfa_max
                        alfa_max=alfa_tmp; 
                     end 
@@ -85,7 +89,28 @@ function x = GradientCasting(D, c, A, b, Aeq, beq, x0, eps)
             
             x = x + dk * alfa;
             it = it + 1;
-        end
+            A1 = [];
+            A2 = [];
+            b2 = []';
+            % step 1
+            Uk = Aeq';
+            % evaluate conditons and append to Uk
+            p = 0;
+            m2 = size(Aeq, 1);
+            for i= 1:n
+                if(abs(A(i, :) * x - b(i)) < eps)
+                    Uk = [A(i, :)' Uk];
+                    p = p+1;
+                    % append condition to equality matrix
+                    A1 = [A1; A(i, :)];
+                else
+                    % append condition to le matrix
+                    A2 = [A2; A(i, :)];
+                    b2 = [b2; b(i)];
+                end
+            end
+            r = p + m2;
+            end
     end
 end
 
