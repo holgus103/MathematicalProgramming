@@ -27,18 +27,19 @@ disp(sprintf('EliminationQR\n'))
 x = EliminationQR(A,b, D, c);
 disp(x);
 
-disp(sprintf('Eliminacja \n'))
-x = eliminacja(D,c,A,b);
-disp(x);
+%disp(sprintf('Eliminacja \n'))
+%x = eliminacja(D,c,A,b);
+%disp(x);
 
 
-disp(sprintf('Aktywne 1\n'))
-[x,f,~] = ogr_akt(D, c, A, b, x0, eps);
-disp(x')
-disp(f)
+%disp(sprintf('Aktywne 1\n'))
+%[x,f,~] = ogr_akt(D, c, A, b, x0, eps);
+%disp(x')
+%disp(f)
 
 disp(sprintf('Eliminacja \n'))
 x = ActiveCond(D,c,A,b, [], [], x0, eps);
 disp(x);
 
+x = GradientCasting(D,c,A,b, [], [], x0, eps);
 

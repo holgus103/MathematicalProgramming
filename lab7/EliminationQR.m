@@ -11,7 +11,7 @@ function x = EliminationQR(A, b, D, c)
     Z = Q2;
     
     x0 = S*b;
-    
+    x0
     y = -(inv(Z'*D*Z))*Z'*(c+D*x0); 
     x = x0 + Z*y;
     
