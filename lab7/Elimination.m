@@ -6,10 +6,10 @@ function x = Elimination(A, b, D, c)
     C1 = inv(C);
     
     S = C1(1:m, :)';
-    Z = C1(m:n, :)';
+    Z = C1(m+1:n, :)';
     
     x0 = S*b;
-    
+    x0
     y = -(inv(Z'*D*Z))*Z'*(c+D*x0); 
     x = x0 + Z*y;
 

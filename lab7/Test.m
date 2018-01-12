@@ -15,7 +15,7 @@ x0=zeros(n,1);
 eps=0.00001;
 
 disp(sprintf('Quadprog\n'))
-x = quadprog(D,c,A,b);
+x = quadprog(D,c,[], [], A, b);
 disp(x);
 
 disp(sprintf('Elimination\n'))
@@ -32,11 +32,12 @@ disp(x);
 %disp(x);
 
 
-%disp(sprintf('Aktywne 1\n'))
+%disp(sprintf('Aktywne 1
 %[x,f,~] = ogr_akt(D, c, A, b, x0, eps);
 %disp(x')
 %disp(f)
 
+x = quadprog(D,c,A, b);
 disp(sprintf('Eliminacja \n'))
 x = ActiveCond(D,c,A,b, [], [], x0, eps);
 disp(x);

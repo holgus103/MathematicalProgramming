@@ -14,7 +14,7 @@ function x = GradientCasting(D, c, A, b, Aeq, beq, x0, eps)
         % evaluate conditons and append to Uk
         p = 0;
         m2 = size(Aeq, 1);
-        for i= 1:neq
+        for i= 1:n
             if(abs(A(i, :) * x - b(i)) < eps)
                 Uk = [A(i, :)' Uk];
                 p = p+1;
@@ -62,7 +62,7 @@ function x = GradientCasting(D, c, A, b, Aeq, beq, x0, eps)
             alfa = (-grad'*dk)/(dk'*D*dk);  
             alfa_max=Inf;
             Ad = [];
-            if(A2 ~= [])
+            if(~isempty(A2))
                 Ad=A2*dk;
             end
             % calculate max step
