@@ -1,4 +1,4 @@
-function x = ActiveCond(D, c, A, b, Aeq, beq, x0, eps)
+function [x, it, fval, lambdas]  = ActiveCond(D, c, A, b, Aeq, beq, x0, eps)
     neq = length(beq);
     n = length(b);
     m = size(D, 2);
@@ -38,6 +38,8 @@ function x = ActiveCond(D, c, A, b, Aeq, beq, x0, eps)
             [val, removeIndex] = min(lambdas);
             if(val >=0)
                 % exit, all lambdas >= 0
+                fval = 0.5 *x'*D*x + c' * x ;
+                
                 return;
             else
                 counter=0;
@@ -78,7 +80,7 @@ function x = ActiveCond(D, c, A, b, Aeq, beq, x0, eps)
                     active(i+neq) = 0;
                 end
             end
-            %active	
+
         end     
     end 
 end
