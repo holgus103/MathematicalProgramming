@@ -2,10 +2,10 @@ function x = GradientCasting(D, c, A, b, Aeq, beq, x0, eps)
     neq = length(beq);
     n = length(b);
     m = length(x0);
-   
+    Pk = [];
     x = x0;
-    it = 0;
 
+    it = 0;
     while true
         A1 = [];
         A2 = [];
@@ -30,7 +30,7 @@ function x = GradientCasting(D, c, A, b, Aeq, beq, x0, eps)
         if(abs(r) < eps)
             Pk = eye(m);
         else
-            Pk = Pk - Uk*(inv(Uk'*Uk))*Uk';
+            Pk = eye(m) - Uk*(inv(Uk'*Uk))*Uk';
         end
 
         grad = D * x + c;
@@ -44,10 +44,10 @@ function x = GradientCasting(D, c, A, b, Aeq, beq, x0, eps)
             else
                 lambdas = -inv(Uk' * Uk) * Uk' * grad;
                 lambdap = lambdas(1:p);
-                lambdam2 = lambdas(p1:m2);
+                lambdam2 = lambdas(p+1:m2);
                 % check another exit condition
                 % step 5
-                if(norm(lambdap))
+                if(norm(lambdap)>=0)
                     return;
                 end
                 % step 6
@@ -59,7 +59,11 @@ function x = GradientCasting(D, c, A, b, Aeq, beq, x0, eps)
         else
             % step 7
             % get step 
-            alfa = (-grad'*dk)/(dk'*D*dk);  
+            alfa = (-grad'*dk)/(dk'*D*dk); 
+            %alfa 
+            %dk
+            %f = @(alfa) 0.5 * (x + alfa * dk)' * D * (x + alfa * dk) + c' * (x + alfa * dk);
+            %alfa = Fibonacci(0, alfa, f, 0.0001);
             alfa_max=Inf;
             Ad = [];
             if(~isempty(A2))
